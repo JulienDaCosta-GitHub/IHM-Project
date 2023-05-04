@@ -34,6 +34,8 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(1, 1, 1);
 scene.add(directionalLight);
 
+firstModel = true;
+
 // Charge le modèle GLTF en utilisant GLTFLoader
 const loader = new GLTFLoader();
 
@@ -41,8 +43,6 @@ function originLoader() {
     loader.load(
         '/the_maze.gltf',
         function (gltf) {
-
-            firstModel = true;
 
             // Récupère l'objet principal de la scène du modèle GLTF
             object = gltf.scene.children[0];
@@ -117,10 +117,10 @@ function loadModel(modelUrl) {
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
     if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === true) {
-        originLoader()
+        loadModel('/maze.gltf');
         firstModel = false;
     } else if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === false) {
-        loadModel('/the_maze.gltf');
+        originLoader()
         firstModel = true;
     }
 });
