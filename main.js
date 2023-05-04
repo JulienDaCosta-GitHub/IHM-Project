@@ -103,11 +103,11 @@ camera.position.z = 5;
 
 function animate() {
 
+    cube.rotation.z = degToRad(alpha) / 2;
     cube.rotation.x = degToRad(beta);
     cube.rotation.y = degToRad(gamma);
-    cube.rotation.z = degToRad(alpha);
 
     renderer.render(scene, camera);
 }
 
-animate();
+animate(); 
