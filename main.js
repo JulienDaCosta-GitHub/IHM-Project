@@ -20,7 +20,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-renderer.setAnimationLoop(animate);
+renderer.setAnimationLoop(rotateMaze);
 document.body.appendChild(renderer.domElement);
 
 camera.position.z = 100;
