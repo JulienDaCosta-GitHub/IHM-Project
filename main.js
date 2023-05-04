@@ -67,6 +67,46 @@ loader.load(
     }
 );
 
+function loadModel(modelUrl) {
+    loader.load(
+        modelUrl,
+        function (gltf) {
+            // Supprime l'ancien modèle de la scène
+            scene.remove(object);
+
+            // Récupère le nouvel objet principal de la scène du modèle GLTF
+            object = gltf.scene.children[0];
+
+            // Redimensionne l'objet
+            object.scale.set(0.5, 0.5, 0.5);
+
+            // Incliner légèrement le mesh vers l'arrière
+            object.rotation.x = -0.99;
+            object.rotation.y = 0.5;
+
+            // Ajoute l'objet à la scène
+            scene.add(object);
+        },
+        function (xhr) {
+            // Fonction de progression
+            console.log((xhr.loaded / xhr.total) * 100 + '% chargé');
+        },
+        function (error) {
+            // Fonction d'erreur
+            console.error('Erreur de chargement', error);
+        }
+    );
+}
+
+// Événement de détection d'accroc
+window.addEventListener('devicemotion', (event) => {
+    // Vérifie si l'accroc est suffisamment important
+    if (event.acceleration.x > 5 || event.acceleration.y > 5 || event.acceleration.z > 5) {
+        // Charge un nouveau modèle GLTF
+        loadModel('/maze.gltf');
+    }
+});
+
 function animate() {
 
     scene.rotation.z = degToRad(alpha) / 2;
