@@ -9,7 +9,7 @@ window.addEventListener('deviceorientation', (event) => {
     gamma = event.gamma;
 });
 
-const degToRad = (deg) =>  deg * (Math.PI / 360);
+const degToRad = (deg) =>  deg * (Math.PI / 320);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
