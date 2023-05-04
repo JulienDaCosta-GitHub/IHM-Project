@@ -75,9 +75,9 @@ loader.load(
 
 function animate() {
 
-    scene.rotation.z = degToRad(alpha) / 2;
-    scene.rotation.x = degToRad(beta);
-    scene.rotation.y = degToRad(gamma);
+    // scene.rotation.z = degToRad(alpha) / 2;
+    // scene.rotation.x = degToRad(beta);
+    // scene.rotation.y = degToRad(gamma);
 
     renderer.render(scene, camera);
 }
