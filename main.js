@@ -63,7 +63,6 @@ function originLoad() {
         }
     );
 }
-
 originLoad();
 
 function loadNewModel(modelUrl) {
@@ -95,18 +94,20 @@ function loadNewModel(modelUrl) {
     );
 }
 
+let isShaking = false;
+
 window.addEventListener('devicemotion', (event) => {
-    if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === true) {
-        loadNewModel('/maze.gltf');
-        firstModel = false;
-    } else if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === false) {
-        loadNewModel('/the_maze.gltf');
-        firstModel = true;
+    if (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) {
+        if (!isShaking) {
+            loadNewModel('/maze.gltf');
+        } else {
+            loadNewModel('/the_maze.gltf');
+        }
+        isShaking = !isShaking;
     }
 });
 
 function rotateMaze() {
-
     scene.rotation.z = degToRad(alpha) / 2;
     scene.rotation.x = degToRad(beta);
     scene.rotation.y = degToRad(gamma);
