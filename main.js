@@ -106,7 +106,7 @@ function loadModel(modelUrl) {
 // Événement de détection d'accroc
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
-    if (event.acceleration.x > 5 || event.acceleration.y > 5 || event.acceleration.z > 5) {
+    if (event.acceleration.x > 10 || event.acceleration.y > 10 || event.acceleration.z > 10) {
         if(firstModel === true) {
             loadModel('/maze.gltf');
             firstModel = false;
