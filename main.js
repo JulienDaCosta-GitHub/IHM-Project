@@ -94,16 +94,15 @@ function loadNewModel(modelUrl) {
     );
 }
 
-let isShaking = false;
-
 window.addEventListener('devicemotion', (event) => {
-    if (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) {
-        if (!isShaking) {
+    if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20)) {
+        if (firstModel === true) {
             loadNewModel('/maze.gltf');
-        } else {
+            firstModel = false;
+        } else if (firstModel === false) {
             loadNewModel('/the_maze.gltf');
+            firstModel = true;
         }
-        isShaking = !isShaking;
     }
 });
 
