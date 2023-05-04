@@ -36,40 +36,43 @@ scene.add(directionalLight);
 
 // Charge le modèle GLTF en utilisant GLTFLoader
 const loader = new GLTFLoader();
-loader.load(
-    '/the_maze.gltf',
-    function (gltf) {
 
-        firstModel = true;
+function originLoader() {
+    loader.load(
+        '/the_maze.gltf',
+        function (gltf) {
 
-        // Récupère l'objet principal de la scène du modèle GLTF
-        object = gltf.scene.children[0];
+            firstModel = true;
 
-        // Récupère le matériau de l'objet
-        object.material = new THREE.MeshStandardMaterial({
-            color: 0xff0000 // Rouge
-        });
+            // Récupère l'objet principal de la scène du modèle GLTF
+            object = gltf.scene.children[0];
 
-        // Redimensionne l'objet
-        object.scale.set(0.5, 0.5, 0.5); // Par exemple, divise la taille par 2
+            // Récupère le matériau de l'objet
+            object.material = new THREE.MeshStandardMaterial({
+                color: 0xff0000 // Rouge
+            });
 
-        // Incliner légèrement le mesh vers l'arrière
-        object.rotation.x = -0.99;
-        object.rotation.y = 0.5;
-        object.rotation.z = -0.5;
+            // Redimensionne l'objet
+            object.scale.set(0.5, 0.5, 0.5); // Par exemple, divise la taille par 2
 
-        // Ajoute l'objet à la scène
-        scene.add(object);
-    },
-    function (xhr) {
-        // Fonction de progression
-        console.log((xhr.loaded / xhr.total * 100) + '% chargé');
-    },
-    function (error) {
-        // Fonction d'erreur
-        console.error('Erreur de chargement', error);
-    }
-);
+            // Incliner légèrement le mesh vers l'arrière
+            object.rotation.x = -0.99;
+            object.rotation.y = 0.5;
+            object.rotation.z = -0.5;
+
+            // Ajoute l'objet à la scène
+            scene.add(object);
+        },
+        function (xhr) {
+            // Fonction de progression
+            console.log((xhr.loaded / xhr.total * 100) + '% chargé');
+        },
+        function (error) {
+            // Fonction d'erreur
+            console.error('Erreur de chargement', error);
+        }
+    );
+}
 
 function loadModel(modelUrl) {
     loader.load(
@@ -112,7 +115,7 @@ function loadModel(modelUrl) {
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
     if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === true) {
-        loadModel('/maze.gltf');
+        originLoader()
         firstModel = false;
     } else if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === false) {
         loadModel('/the_maze.gltf');
