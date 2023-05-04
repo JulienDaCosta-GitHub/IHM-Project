@@ -74,6 +74,8 @@ function originLoader() {
     );
 }
 
+originLoader();
+
 function loadModel(modelUrl) {
     loader.load(
         modelUrl,
