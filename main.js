@@ -25,107 +25,87 @@ document.body.appendChild(renderer.domElement);
 
 camera.position.z = 100;
 
-// Créer une lumière ambiante
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-// Créer une lumière directionnelle
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(1, 1, 1);
 scene.add(directionalLight);
 
-firstModel = true;
-
-// Charge le modèle GLTF en utilisant GLTFLoader
 const loader = new GLTFLoader();
 
-function originLoader() {
+function originLoad() {
     loader.load(
         '/the_maze.gltf',
         function (gltf) {
 
-            // Récupère l'objet principal de la scène du modèle GLTF
+            firstModel = true;
+
             object = gltf.scene.children[0];
 
-            // Récupère le matériau de l'objet
             object.material = new THREE.MeshStandardMaterial({
                 color: 0xff0000 // Rouge
             });
 
-            // Redimensionne l'objet
-            object.scale.set(0.5, 0.5, 0.5); // Par exemple, divise la taille par 2
+            object.scale.set(0.5, 0.5, 0.5);
 
-            // Incliner légèrement le mesh vers l'arrière
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
             object.rotation.z = -0.5;
 
-            // Ajoute l'objet à la scène
             scene.add(object);
         },
         function (xhr) {
-            // Fonction de progression
             console.log((xhr.loaded / xhr.total * 100) + '% chargé');
         },
         function (error) {
-            // Fonction d'erreur
             console.error('Erreur de chargement', error);
         }
     );
 }
 
-originLoader();
+originLoad();
 
-function loadModel(modelUrl) {
+function loadNewModel(modelUrl) {
     loader.load(
         modelUrl,
         function (gltf) {
-            // Supprime l'ancien modèle de la scène
             scene.remove(object);
 
-            // Récupère le nouvel objet principal de la scène du modèle GLTF
             object = gltf.scene.children[0];
 
-            // Récupère le matériau de l'objet
             object.material = new THREE.MeshStandardMaterial({
                 color: 0xff0000 // Rouge
             });
 
-            // Redimensionne l'objet
             object.scale.set(0.5, 0.5, 0.5);
 
-            // Incliner légèrement le mesh vers l'arrière
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
             object.rotation.z = -0.25;
 
-            // Ajoute l'objet à la scène
             scene.add(object);
         },
         function (xhr) {
-            // Fonction de progression
             console.log((xhr.loaded / xhr.total) * 100 + '% chargé');
         },
         function (error) {
-            // Fonction d'erreur
             console.error('Erreur de chargement', error);
         }
     );
 }
 
-// Événement de détection d'accroc
 window.addEventListener('devicemotion', (event) => {
-    // Vérifie si l'accroc est suffisamment important
     if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === true) {
-        loadModel('/maze.gltf');
+        loadNewModel('/maze.gltf');
         firstModel = false;
     } else if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === false) {
-        originLoader()
+        loadNewModel('/the_maze.gltf');
         firstModel = true;
     }
 });
 
-function animate() {
+function rotateMaze() {
 
     scene.rotation.z = degToRad(alpha) / 2;
     scene.rotation.x = degToRad(beta);
@@ -134,4 +114,4 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate();
+rotateMaze();
