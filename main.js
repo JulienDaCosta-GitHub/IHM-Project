@@ -111,14 +111,12 @@ function loadModel(modelUrl) {
 // Événement de détection d'accroc
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
-    if (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) {
-        if(firstModel === true) {
-            loadModel('/maze.gltf');
-            firstModel = false;
-        } else {
-            loadModel('/the_maze.gltf');
-            firstModel = true;
-        }
+    if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === true) {
+        loadModel('/maze.gltf');
+        firstModel = false;
+    } else if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) && firstModel === false) {
+        loadModel('/the_maze.gltf');
+        firstModel = true;
     }
 });
 
