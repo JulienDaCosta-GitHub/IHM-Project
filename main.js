@@ -57,7 +57,7 @@ loader.load(
         object.scale.set(0.5, 0.5, 0.5); // Par exemple, divise la taille par 2
 
         // Incliner légèrement le mesh vers l'arrière
-        object.rotation.x = -0.50;
+        object.rotation.x = -0.200;
 
         // Ajoute l'objet à la scène
         scene.add(object);
