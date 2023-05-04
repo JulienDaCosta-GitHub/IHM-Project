@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
 let alpha, beta, gamma = 0;
 
@@ -30,6 +30,15 @@ document.body.appendChild(renderer.domElement);
 
 camera.position.z = 100;
 
+// Créer une lumière ambiante
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+// Créer une lumière directionnelle
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+directionalLight.position.set(1, 1, 1);
+scene.add(directionalLight);
+
 // Charge le modèle GLTF en utilisant GLTFLoader
 const loader = new GLTFLoader();
 loader.load(
@@ -40,10 +49,9 @@ loader.load(
         const object = gltf.scene.children[0];
 
         // Récupère le matériau de l'objet
-        const material = object.material;
-
-        // Modifie la couleur du matériau
-        material.color.set('#ff0000'); // Par exemple, rouge
+        object.material = new THREE.MeshStandardMaterial({
+            color: 0xff0000 // Rouge
+        });
 
         // Redimensionne l'objet
         object.scale.set(0.5, 0.5, 0.5); // Par exemple, divise la taille par 2
