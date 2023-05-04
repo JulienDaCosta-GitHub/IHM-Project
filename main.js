@@ -81,6 +81,11 @@ function loadModel(modelUrl) {
             // Récupère le nouvel objet principal de la scène du modèle GLTF
             object = gltf.scene.children[0];
 
+            // Récupère le matériau de l'objet
+            object.material = new THREE.MeshStandardMaterial({
+                color: 0xff0000 // Rouge
+            });
+
             // Redimensionne l'objet
             object.scale.set(0.5, 0.5, 0.5);
 
@@ -106,7 +111,7 @@ function loadModel(modelUrl) {
 // Événement de détection d'accroc
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
-    if (event.acceleration.x > 10 || event.acceleration.y > 10 || event.acceleration.z > 10) {
+    if (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20) {
         if(firstModel === true) {
             loadModel('/maze.gltf');
             firstModel = false;
