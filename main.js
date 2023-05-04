@@ -9,7 +9,7 @@ window.addEventListener('deviceorientation', (event) => {
     gamma = event.gamma;
 });
 
-const degToRad = (deg) =>  deg * (Math.PI / 180);
+const degToRad = (deg) =>  deg * (Math.PI / 90);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
@@ -75,9 +75,9 @@ loader.load(
 
 function animate() {
 
-    // scene.rotation.z = degToRad(alpha) / 2;
-    // scene.rotation.x = degToRad(beta);
-    // scene.rotation.y = degToRad(gamma);
+    scene.rotation.z = degToRad(alpha) / 2;
+    scene.rotation.x = degToRad(beta);
+    scene.rotation.y = degToRad(gamma);
 
     renderer.render(scene, camera);
 }
