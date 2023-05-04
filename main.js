@@ -3,6 +3,7 @@ import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
 let alpha, beta, gamma = 0;
 let object;
+let firstModel;
 
 window.addEventListener('deviceorientation', (event) => {
     alpha = event.alpha;
@@ -38,6 +39,8 @@ const loader = new GLTFLoader();
 loader.load(
     '/the_maze.gltf',
     function (gltf) {
+
+        firstModel = true;
 
         // Récupère l'objet principal de la scène du modèle GLTF
         object = gltf.scene.children[0];
@@ -104,8 +107,13 @@ function loadModel(modelUrl) {
 window.addEventListener('devicemotion', (event) => {
     // Vérifie si l'accroc est suffisamment important
     if (event.acceleration.x > 5 || event.acceleration.y > 5 || event.acceleration.z > 5) {
-        // Charge un nouveau modèle GLTF
-        loadModel('/maze.gltf');
+        if(firstModel === true) {
+            loadModel('/maze.gltf');
+            firstModel = false;
+        } else {
+            loadModel('/the_maze.gltf');
+            firstModel = true;
+        }
     }
 });
 
