@@ -58,7 +58,6 @@ loader.load(
 
         // Incliner légèrement le mesh vers l'arrière
         object.rotation.x = -0.99;
-        object.rotation.y = 0.2;
 
         // Ajoute l'objet à la scène
         scene.add(object);
