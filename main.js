@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
 let alpha, beta, gamma = 0;
+let object;
 
 window.addEventListener('deviceorientation', (event) => {
     alpha = event.alpha;
@@ -39,7 +40,7 @@ loader.load(
     function (gltf) {
 
         // Récupère l'objet principal de la scène du modèle GLTF
-        const object = gltf.scene.children[0];
+        object = gltf.scene.children[0];
 
         // Récupère le matériau de l'objet
         object.material = new THREE.MeshStandardMaterial({
