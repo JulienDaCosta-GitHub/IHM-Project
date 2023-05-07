@@ -11,7 +11,7 @@ window.addEventListener('deviceorientation', (event) => {
     gamma = event.gamma;
 });
 
-const calcDeg = (deg) =>  deg * (Math.PI / 280);
+const calcDeg = (deg) => deg * (Math.PI / 280);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x425EAD);
@@ -77,7 +77,7 @@ function loadNewModel(modelUrl) {
                 color: 0xFADC91
             });
 
-            object.scale.set(0.5, 0.5, 0.5);
+            object.scale.set(0.4, 0.4, 0.4);
 
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
