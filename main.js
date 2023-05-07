@@ -11,7 +11,7 @@ window.addEventListener('deviceorientation', (event) => {
     gamma = event.gamma;
 });
 
-const degToRad = (deg) =>  deg * (Math.PI / 280);
+const calcDeg = (deg) =>  deg * (Math.PI / 280);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
@@ -94,22 +94,32 @@ function loadNewModel(modelUrl) {
     );
 }
 
-window.addEventListener('devicemotion', (event) => {
-    if ((event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20)) {
-        if (firstModel === true) {
+let isShaking = false;
+let isDetecting = true;
+
+window.addEventListener('devicemotion', detectShake);
+
+function detectShake(event) {
+    if (isDetecting && (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20)) {
+        isDetecting = false;
+        window.removeEventListener('devicemotion', detectShake);
+        if (!isShaking) {
             loadNewModel('/maze.gltf');
-            firstModel = false;
-        } else if (firstModel === false) {
+        } else {
             loadNewModel('/the_maze.gltf');
-            firstModel = true;
         }
+        isShaking = !isShaking;
+        setTimeout(() => {
+            isDetecting = true;
+            window.addEventListener('devicemotion', detectShake);
+        }, 2000);
     }
-});
+}
 
 function rotateMaze() {
-    scene.rotation.z = degToRad(alpha) / 2;
-    scene.rotation.x = degToRad(beta);
-    scene.rotation.y = degToRad(gamma);
+    scene.rotation.z = calcDeg(alpha) / 2;
+    scene.rotation.x = calcDeg(beta);
+    scene.rotation.y = calcDeg(gamma);
 
     renderer.render(scene, camera);
 }
