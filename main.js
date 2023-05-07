@@ -112,7 +112,7 @@ rotateMaze();
 window.addEventListener('devicemotion', detectShake);
 
 function detectShake(event) {
-    if (isDetecting && (event.acceleration.x > 20 || event.acceleration.y > 20 || event.acceleration.z > 20)) {
+    if (isDetecting && (event.acceleration.x > 10 || event.acceleration.y > 10 || event.acceleration.z > 10)) {
         isDetecting = false;
         window.removeEventListener('devicemotion', detectShake);
         if (!isShaking) {
