@@ -47,7 +47,7 @@ function originLoad() {
                 color: 0xFADC91
             });
 
-            object.scale.set(0.4, 0.4, 0.4);
+            object.scale.set(0.45, 0.45, 0.45);
 
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
@@ -65,7 +65,7 @@ function originLoad() {
 }
 originLoad();
 
-function loadNewModel(modelUrl) {
+function loadNewModel(modelUrl, maze) {
     loader.load(
         modelUrl,
         function (gltf) {
@@ -77,7 +77,11 @@ function loadNewModel(modelUrl) {
                 color: 0xFADC91
             });
 
-            object.scale.set(0.4, 0.4, 0.4);
+            if (maze === 'originMaze') {
+                object.scale.set(0.45, 0.45, 0.45);
+            } else if (maze === 'newMaze') {
+                object.scale.set(0.3, 0.3, 0.3);
+            }
 
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
@@ -104,9 +108,9 @@ function detectShake(event) {
         isDetecting = false;
         window.removeEventListener('devicemotion', detectShake);
         if (!isShaking) {
-            loadNewModel('/maze.gltf');
+            loadNewModel('/maze.gltf', 'newMaze');
         } else {
-            loadNewModel('/the_maze.gltf');
+            loadNewModel('/the_maze.gltf', 'originMaze');
         }
         isShaking = !isShaking;
         setTimeout(() => {
