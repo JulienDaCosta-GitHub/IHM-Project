@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
+let alpha, beta, gamma = 0;
 let object;
 let firstModel;
 let isShaking = false;
@@ -94,13 +95,15 @@ function loadNewModel(modelUrl, maze) {
 }
 
 window.addEventListener('deviceorientation', (event) => {
-    rotateMaze(event);
+    alpha = event.alpha;
+    beta = event.beta;
+    gamma = event.gamma;
 });
 
 function rotateMaze(event) {
-    scene.rotation.z = calcDeg(event.alpha) / 2;
-    scene.rotation.x = calcDeg(event.beta);
-    scene.rotation.y = calcDeg(event.gamma);
+    scene.rotation.z = calcDeg(alpha) / 2;
+    scene.rotation.x = calcDeg(beta);
+    scene.rotation.y = calcDeg(gamma);
 
     renderer.render(scene, camera);
 }
