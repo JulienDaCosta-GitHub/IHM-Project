@@ -124,6 +124,6 @@ function detectShake(event) {
         setTimeout(() => {
             isDetecting = true;
             window.addEventListener('devicemotion', detectShake);
-        });
+        }, 2000);
     }
 }
