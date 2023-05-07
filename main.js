@@ -14,7 +14,7 @@ window.addEventListener('deviceorientation', (event) => {
 const calcDeg = (deg) =>  deg * (Math.PI / 280);
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+scene.background = new THREE.Color(0x425EAD);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
@@ -44,10 +44,10 @@ function originLoad() {
             object = gltf.scene.children[0];
 
             object.material = new THREE.MeshStandardMaterial({
-                color: 0xff0000 // Rouge
+                color: 0xFADC91
             });
 
-            object.scale.set(0.5, 0.5, 0.5);
+            object.scale.set(0.4, 0.4, 0.4);
 
             object.rotation.x = -0.99;
             object.rotation.y = 0.5;
@@ -74,7 +74,7 @@ function loadNewModel(modelUrl) {
             object = gltf.scene.children[0];
 
             object.material = new THREE.MeshStandardMaterial({
-                color: 0xff0000 // Rouge
+                color: 0xFADC91
             });
 
             object.scale.set(0.5, 0.5, 0.5);
