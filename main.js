@@ -1,15 +1,10 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
-let alpha, beta, gamma = 0;
 let object;
 let firstModel;
-
-window.addEventListener('deviceorientation', (event) => {
-    alpha = event.alpha;
-    beta = event.beta;
-    gamma = event.gamma;
-});
+let isShaking = false;
+let isDetecting = true;
 
 const calcDeg = (deg) => deg * (Math.PI / 280);
 
@@ -98,8 +93,18 @@ function loadNewModel(modelUrl, maze) {
     );
 }
 
-let isShaking = false;
-let isDetecting = true;
+window.addEventListener('deviceorientation', (event) => {
+    rotateMaze(event);
+});
+
+function rotateMaze(event) {
+    scene.rotation.z = calcDeg(event.alpha) / 2;
+    scene.rotation.x = calcDeg(event.beta);
+    scene.rotation.y = calcDeg(event.gamma);
+
+    renderer.render(scene, camera);
+}
+rotateMaze();
 
 window.addEventListener('devicemotion', detectShake);
 
@@ -119,13 +124,3 @@ function detectShake(event) {
         }, 2000);
     }
 }
-
-function rotateMaze() {
-    scene.rotation.z = calcDeg(alpha) / 2;
-    scene.rotation.x = calcDeg(beta);
-    scene.rotation.y = calcDeg(gamma);
-
-    renderer.render(scene, camera);
-}
-
-rotateMaze();
