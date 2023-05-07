@@ -80,7 +80,7 @@ function loadNewModel(modelUrl, maze) {
             if (maze === 'originMaze') {
                 object.scale.set(0.45, 0.45, 0.45);
             } else if (maze === 'newMaze') {
-                object.scale.set(0.3, 0.3, 0.3);
+                object.scale.set(0.35, 0.35, 0.35);
             }
 
             object.rotation.x = -0.99;
